@@ -1,0 +1,83 @@
+.piano {
+  --note-black-color:   #000000;
+  --note-white-color:   #FFFFFF;
+  --playing-note-color: #1AD3C0;
+
+  width: 100%;
+  height: 10em;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.note {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  float: left;
+  border-color: var(--note-black-color);
+}
+
+.piano .white {
+  height: inherit;
+  width: 4em;
+  z-index: 1;
+  border-left: 1px solid var(--note-black-color);
+  border-bottom: 1px solid var(--note-black-color);
+  border-radius: 0 0 5px 5px;
+  background-color: var(--note-white-color);
+}
+
+.piano .white:first-of-type {
+  border-left: 2px solid var(--note-black-color);
+}
+
+.piano .white:last-of-type {
+  border-right: 2px solid var(--note-black-color);
+}
+
+.piano .white:active {
+  border-top: 1px solid #777;
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1) inset, -5px 5px 20px rgba(0, 0, 0, 0.2) inset, 0 0 3px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(top, #fff 0%, #e9e9e9 100%);
+}
+
+.piano .black {
+  height: 50%;
+  width: 2em;
+  margin: 0 0 0 -1em;
+  z-index: 2;
+  border: 1px solid var(--note-black-color);
+  border-radius: 0 0 3px 3px;
+  background-color: var(--note-black-color);
+}
+
+.black:active {
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.2) inset, 0 -2px 2px 3px rgba(0, 0, 0, 0.6) inset, 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(top, var(--note-white-color) 0%, #e9e9e9 100%);
+}
+
+.a, .g, .d, .e, .b {
+  margin: 0 0 0 -1em;
+}
+
+.piano .note:first-child {
+  border-radius: 5px 0 5px 5px;
+}
+
+.piano .note:last-child {
+  border-radius: 0 5px 5px 5px;
+}
+
+.note.playing,
+.note:active.playing {
+  background-color: var(--playing-note-color);
+}
+
+.piano-selector {
+  font-size: 1.5em;
+  height: 2.5em;
+}

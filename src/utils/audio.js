@@ -8,11 +8,12 @@ export const AudioUtils = Object.freeze({
 
     return LA_HZ * Math.pow(2, (note - LA_DEC) / OCTAVE);
   },
+
   generateOscillator(note, audioContext) {
     let oscillator, frequency;
 
-    oscillator   = audioContext.createOscillator();
-    frequency    = this.getFrequency(note);
+    oscillator = audioContext.createOscillator();
+    frequency = this.getFrequency(note);
 
     oscillator.type = 'square';
     oscillator.connect(audioContext.destination);

@@ -1,13 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>MIDI Redux</title>
-  </head>
-  <body>
-    <h1>MIDI Redux</h1>
-    <div id="midi-info"></div>
-    <button type="button" name="button" id="test-button">Test Button</button>
-  </body>
-  <script type="text/javascript" src="./build/index.js"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title>MIDI Redux</title>
+  <link rel="stylesheet" href="./assets/milligram.css">
+  <link rel="stylesheet" href="./assets/piano.css">
+</head>
+
+<body>
+  <h1 class="title centered">MIDI Redux</h1>
+
+  <section class="container">
+
+    <section class="row">
+      <section class="column column-50 column-offset-25">
+
+      <form id="audio-selector" class="audio-selector">
+        <input type="radio" name="audioSelectors" value="true"> Web API Audio<br>
+        <input type="radio" name="audioSelectors" value="false" checked> Instrument<br>
+      </form>
+
+        <select id="instrument-selector" class="piano-selector">Select Instrument</select>
+
+      </section>
+    </section>
+
+    <div class="piano">
+      <button class="note white c"></button>
+      <button class="note black cs"></button>
+      <button class="note white d"></button>
+      <button class="note black ds"></button>
+      <button class="note white e"></button>
+      <button class="note white f"></button>
+      <button class="note black fs"></button>
+      <button class="note white g"></button>
+      <button class="note black gs"></button>
+      <button class="note white a"></button>
+      <button class="note black as"></button>
+      <button class="note white b"></button>
+      <button class="note white c"></button>
+      <button class="note black cs"></button>
+      <button class="note white d"></button>
+      <button class="note black ds"></button>
+      <button class="note white e"></button>
+      <button class="note white f"></button>
+      <button class="note black fs"></button>
+      <button class="note white g"></button>
+      <button class="note black gs"></button>
+      <button class="note white a"></button>
+      <button class="note black as"></button>
+      <button class="note white b"></button>
+      <button class="note white c"></button>
+      <button class="note black cs"></button>
+      <button class="note white d"></button>
+      <button class="note black ds"></button>
+      <button class="note white e"></button>
+      <button class="note white f"></button>
+      <button class="note black fs"></button>
+      <button class="note white g"></button>
+    </div>
+  </section>
+</body>
+
+<script type="text/javascript" src="./build/index.js"></script>
 </html>

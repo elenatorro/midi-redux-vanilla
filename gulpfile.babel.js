@@ -1,25 +1,26 @@
 var gulp        = require('gulp');
 
 var browserify  = require('browserify');
-var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
 var buffer      = require('vinyl-buffer');
 var uglify      = require('gulp-uglify');
 var sourcemaps  = require('gulp-sourcemaps');
 var livereload  = require('gulp-livereload');
+var connect     = require('gulp-connect');
 
 const Tasks = Object.freeze({
   BUILD:   'build',
   DEFAULT: 'default',
-  WATCH:   'watch'
+  WATCH:   'watch',
+  CONNECT: 'connect'
 });
 
 const Paths = Object.freeze({
   SRC: './index.js',
-  SOURCE: 'index.js',
+  SOURCE: './index.js',
   DIST: './build',
   MAPS: './maps',
-  SCRIPTS: '/**/**/*.js'
+  SCRIPTS: './src/**/*.js'
 });
 
 const BabelConfig = Object.freeze({
@@ -47,8 +48,7 @@ gulp.task(Tasks.BUILD, function () {
       .pipe(sourcemaps.init())
       .pipe(uglify())
       .pipe(sourcemaps.write(Paths.MAPS))
-      .pipe(gulp.dest(Paths.DIST))
-      .pipe(livereload());
+      .pipe(gulp.dest(Paths.DIST));
 });
 
 gulp.task(Tasks.WATCH, [Tasks.BUILD], function () {
@@ -56,4 +56,11 @@ gulp.task(Tasks.WATCH, [Tasks.BUILD], function () {
     gulp.watch([Paths.SOURCE, Paths.SCRIPTS], [Tasks.BUILD]);
 });
 
-gulp.task(Tasks.DEFAULT, [Tasks.WATCH]);
+gulp.task(Tasks.CONNECT, function() {
+  connect.server({
+    root: '.',
+    port: 8888
+  });
+});
+
+gulp.task(Tasks.DEFAULT, [Tasks.CONNECT, Tasks.WATCH]);

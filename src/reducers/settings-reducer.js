@@ -2,23 +2,19 @@ import MIDIAction from '../actions/midi-actions.js';
 import MIDIConnect from '../actions/midi-connect.js';
 
 const initialState = {
-  message: 'None',
-  inputs: [],
-  data: null,
-  audioContext: !!window.AudioContext ? new window.AudioContext() : new window.webkitAudioContext(),
-  notes: {}
+  midiAccess: null,
+  webApiAudio: false,
+  gainNode: null,
+  soundfontInstrument: null
 };
 
 export default function MIDIEventsReducer(state=initialState, action) {
   const { type, payload } = action;
-
   switch (type) {
-    case MIDIAction.NOTE_ON:
-    case MIDIAction.NOTE_OFF:
-    case MIDIAction.PROGRAM_CHANGE:
-    case MIDIAction.INSTRUMENT_NAME:
-    case MIDIAction.CONTROLLER:
-    case MIDIAction.SYS_EX:
+    case MIDIConnect.MIDI_SUCCESS:
+    case MIDIConnect.MIDI_FAILURE:
+    case MIDIConnect.MIDI_LOAD_INSTRUMENT:
+    case MIDIConnect.CHANGE_AUDIO:
       return {
         ...state,
         ...payload

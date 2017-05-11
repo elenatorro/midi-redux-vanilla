@@ -6,7 +6,7 @@ export function midiMessage(event) {
   return (dispatch, getState) => {
     let midiMessage, message;
 
-    midiMessage = MidiUtils.getEventType(event);
+    midiMessage = MidiUtils.getEventType(event.data);
     message = MidiMessages[midiMessage];
 
     dispatch(MidiEvents[message](event, message));
