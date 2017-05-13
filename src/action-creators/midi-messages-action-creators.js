@@ -4,11 +4,9 @@ import * as MidiEvents from '../action-creators/midi-events-action-creators';
 
 export function midiMessage(event) {
   return (dispatch, getState) => {
-    let midiMessage, message;
+    const midiMessage = MidiUtils.getEventType(event.data);
+    const message = MidiMessages[midiMessage];
 
-    midiMessage = MidiUtils.getEventType(event.data);
-    message = MidiMessages[midiMessage];
-
-    dispatch(MidiEvents[message](event, message));
+    dispatch(MidiEvents[message](event));
   };
 }

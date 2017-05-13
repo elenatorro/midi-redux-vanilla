@@ -3,7 +3,7 @@ export const MidiPiano = {
     this.store = store;
     this.midiEventsActions = midiEventsActions;
     this.notes = document.getElementsByClassName('note');
-    this.keys  = {};
+    this.keys$  = {};
 
     _initKeyElements.call(this);
 
@@ -11,16 +11,18 @@ export const MidiPiano = {
   },
 
   render() {
-    let store;
-
-    store = this.store;
+    const store = this.store;
 
     store.subscribe(() => {
-      let note, state;
-      state = store.getState();
+      const state = store.getState();
 
-      for (note in state.midi.notes) {
-        _togglePlayingNote.call(this, state.midi.notes[note], this.keys[note]);
+      for (let note in state.midi.notes) {
+        const key$ = this.keys$[note];
+        const midiNote = state.midi.notes[note];
+        const toggle = midiNote ? 'add' : 'remove';
+        const playingClass = 'playing';
+
+        key$.classList[toggle](playingClass);
       }
     });
   }
@@ -35,13 +37,7 @@ function _initKeyElements() {
     note.addEventListener('mousedown', this.midiEventsActions.noteOn);
     note.addEventListener('mouseup', this.midiEventsActions.noteOff);
 
-    this.keys[noteNumber] = note;
+    this.keys$[noteNumber] = note;
     noteNumber++;
   });
-}
-
-function _togglePlayingNote(note, key) {
-  return note ?
-    key.classList.add('playing')
-    : key.classList.remove('playing');
 }

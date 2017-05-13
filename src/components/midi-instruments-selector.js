@@ -15,34 +15,27 @@ export const MidiInstrumentsSelector = {
   },
 
   loadInstrument(event) {
-    let instrument = event.target.value;
+    const instrument = event.target.value;
     this.midiSetupActions.loadSoundfontInstrument(instrument);
   },
 
   render() {
-    let store;
-
-    store = this.store;
+    const store = this.store;
 
     store.subscribe(() => {
-      let state;
-      state = store.getState();
+      const state = store.getState();
+      const hiddenClass = 'hidden';
+      const toggleHidden = state.settings.webApiAudio ? 'add' : 'remove';
 
-      if (state.settings.webApiAudio) {
-        this.instrumentSelector.classList.add('hidden');
-      } else {
-        this.instrumentSelector.classList.remove('hidden');
-      }
+      this.instrumentSelector.classList[toggleHidden](hiddenClass);
     });
   }
 };
 
 
 function _addInstrumentOptions() {
-  let instrument, instrumentOption;
-
-  for (instrument in MIDIInstruments) {
-    instrumentOption = document.createElement('option');
+  for (let instrument in MIDIInstruments) {
+    let instrumentOption = document.createElement('option');
     instrumentOption.value = MIDIInstruments[instrument];
     instrumentOption.text = MIDIInstruments[instrument];
     this.instrumentSelector.appendChild(instrumentOption);

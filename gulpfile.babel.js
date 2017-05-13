@@ -59,7 +59,7 @@ gulp.task(Tasks.WATCH, [Tasks.BUILD], function () {
 gulp.task(Tasks.CONNECT, function() {
   connect.server({
     root: '.',
-    port: 8888
+    port: 8883
   });
 });
 

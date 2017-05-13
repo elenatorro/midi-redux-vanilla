@@ -5,14 +5,15 @@ import { AudioUtils } from '../utils/audio';
 
 export function noteOn(event, message='noteOn') {
   return (dispatch, getState) => {
-    let data, state, notes, note, ac;
+    const state = getState();
+    const data = event.data
+      ? event.data
+      : MidiUtils.setNoteOnMessage(event.target);
 
-    data = event.data ? event.data : MidiUtils.setNoteOnMessage(event.target);
-    note = MidiUtils.getNote(data);
+    const note = MidiUtils.getNote(data);
 
-    state = getState();
-    notes = state.midi.notes;
-    ac    = state.midi.audioContext;
+    let ac = state.midi.audioContext;
+    let notes = state.midi.notes;
 
     if (state.settings.webApiAudio) {
 
@@ -28,22 +29,20 @@ export function noteOn(event, message='noteOn') {
 
     dispatch({
       type: MidiAction.NOTE_ON,
-      payload: {
-        message, data, notes
-      }
+      payload: { message, data, notes }
     });
   };
 }
 
 export function noteOff(event, message='noteOff') {
   return (dispatch, getState) => {
-    let data, state, notes, note;
+    const state = getState();
+    const data = event.data
+      ? event.data
+      : MidiUtils.setNoteOffMessage(event.target);
 
-    data = event.data ? event.data : MidiUtils.setNoteOffMessage(event.target);
-    note = MidiUtils.getNote(data);
-
-    state = getState();
-    notes = state.midi.notes;
+    const note = MidiUtils.getNote(data);
+    let notes = state.midi.notes;
 
     if (state.settings.webApiAudio) {
 
@@ -60,26 +59,18 @@ export function noteOff(event, message='noteOff') {
 
     dispatch({
       type: MidiAction.NOTE_OFF,
-      payload: {
-        message,
-        data,
-        notes
-      }
+      payload: { message, data, notes }
     });
   };
 }
 
 export function controller(event, message) {
   return (dispatch, getState) => {
-    let message;
-
-    message = event.data;
+    const message = event.data;
 
     dispatch({
       type: MidiAction.CONTROLLER,
-      payload: {
-        message
-      }
+      payload: { message }
     });
   };
 }

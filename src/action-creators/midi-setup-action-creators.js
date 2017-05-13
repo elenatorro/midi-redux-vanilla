@@ -11,48 +11,42 @@ import {
 
 export function midiSuccess(midiAccess) {
   return (dispatch, getState) => {
-    let inputs, state, midiMessages, input, gainNode;
+    const state = getState();
+    const midiMessages = bindActionCreators(MidiMessages, dispatch);
+    const status = 'MIDI Succeeded';
 
-    inputs = midiAccess.inputs.values();
-    state = getState();
-    gainNode = state.midi.audioContext.createGain();
+    let inputs = midiAccess.inputs.values();
+    let gainNode = state.midi.audioContext.createGain();
+
     gainNode.connect(state.midi.audioContext.destination);
-    midiMessages = bindActionCreators(MidiMessages, dispatch);
 
-    for(input = inputs.next(); input && !input.done; input = inputs.next()) {
+    for(let input = inputs.next(); input && !input.done; input = inputs.next()) {
       input.value.onmidimessage = midiMessages.midiMessage;
     }
 
     dispatch({
       type: MidiConnect.MIDI_SUCCESS,
-      payload: {
-        status: 'Midi Succeeded',
-        midiAccess,
-        inputs,
-        gainNode
-      }
+      payload: { status, midiAccess, inputs, gainNode }
     });
   };
 }
 
 export function midiFailure(midiAccess) {
   return (dispatch) => {
+    const status = 'MIDI Failed';
+
     dispatch({
       type: MidiConnect.MIDI_FAILURE,
-      payload: {
-        status: 'Midi Failed'
-      }
+      payload: { status }
     });
   };
 }
 
 export function loadSoundfontInstrument(instrument) {
   return (dispatch, getState) => {
-    let state, ac, instrumentPath;
-
-    state = getState();
-    ac = state.midi.audioContext;
-    instrumentPath = _getInstrumentPath.call(this, instrument);
+    const state = getState();
+    const instrumentPath = _getInstrumentPath.call(this, instrument);
+    let ac = state.midi.audioContext;
 
     Soundfont.instrument(ac, instrumentPath)
       .then((soundfontInstrument) => {
@@ -65,11 +59,8 @@ export function loadSoundfontInstrument(instrument) {
 }
 
 export function changeAudio(audio) {
-  return (dispatch, getState) => {
-    let state, webApiAudio;
-
-    state = getState();
-    webApiAudio = audio;
+  return (dispatch) => {
+    const webApiAudio = audio;
 
     dispatch({
       type: MidiConnect.CHANGE_AUDIO,

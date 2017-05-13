@@ -13,18 +13,15 @@ export const MidiAudioSelector = {
   },
 
   changeAudio(event) {
-    let audio = event.target.value === "true";
+    const audio = event.target.value === "true";
     this.midiSetupActions.changeAudio(audio);
   },
 
   render() {
-    let store;
-
-    store = this.store;
+    const store = this.store;
 
     store.subscribe(() => {
-      let state;
-      state = store.getState();
+
     });
   }
 };
