@@ -18,7 +18,7 @@ export const InstrumentPathConfig = ({
 });
 
 export const SOUNDS_PATH =
-  `${InstrumentPathConfig.URL}:${InstrumentPathConfig.PORT}/${InstrumentPathConfig.SET}`;
+  `${InstrumentPathConfig.URL_GITHUB}:${InstrumentPathConfig.PORT}/${InstrumentPathConfig.SET}`;
 
 export const SOUNDS_FILETYPE = 'mp3';
 export const SOUNDS_FILE_EXTENSION = 'js';
